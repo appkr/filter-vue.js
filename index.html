@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Filter using Vue.js</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="app.css"/>
+</head>
+
+<body id="demo" class="container">
+
+  <div class="form-group">
+    <input v-model="search" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <div class="radio-inline">
+      <label>
+        <input type="radio" name="gender" v-model="gender" value="all"/> All
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label>
+        <input type="radio" name="gender" v-model="gender" value="male"/> Male
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label>
+        <input type="radio" name="gender" v-model="gender" value="female"/> Female
+      </label>
+    </div>
+</div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th v-repeat="column: columns">
+          <a href="#" v-on="click: sortBy(column)" v-class="active: sortKey == column">
+            {{column | capitalize}}
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-repeat="people | filterBy search | orderBy sortKey reverse | gender">
+        <td>{{name}}</td>
+        <td>{{age}}</td>
+        <td>{{gender}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="debug">
+    <pre>{{$data | json}}</pre>
+  </div>
+
+  <script src="bower_components/vue/dist/vue.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
